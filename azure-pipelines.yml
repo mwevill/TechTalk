@@ -33,13 +33,14 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
         ArtifactName: Demo
-  - stage: Deploy
-    jobs:
-    # track deployments on the environment
+
+- stage: Deploy
+  jobs:
+  # track deployments on the environment
   - deployment: DeployWeb
     pool:
-        vmImage: 'windows-latest'
-    # creates an environment if it doesn’t exist
+      vmImage: 'windows-latest'
+  # creates an environment if it doesn’t exist
     environment: 'AcceptanceTest'
     strategy:
       # default deployment strategy
