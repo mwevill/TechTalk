@@ -46,6 +46,12 @@ stages:
     pool:
       vmImage: 'windows-latest'
   # creates an environment if it doesn’t exist
+    variables:
+      ResourceGroup: 'mwtestrg'
+      skuName: 'B1'
+      skuCapacity: '1'
+      sqlAdministratorLogin: 'superSecureLogin'
+      sqlAdministratorLoginPassword: 'P455W0rd1234'
     environment: 'AcceptanceTest'
     strategy:
       # default deployment strategy
