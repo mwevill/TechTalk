@@ -48,4 +48,14 @@ stages:
         deploy:
           steps:
           - script: echo my first deployment
+          - task: AzureResourceGroupDeployment@2
+            displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
+            inputs:
+              azureSubscription: 'SFA-DAS-DevTest'
+              resourceGroupName: '$(ResourceGroup)'
+              location: 'West Europe'
+              csmFile: '$(System.DefaultWorkingDirectory)/das-employer-favourites/drop/azure/template.json'
+              overrideParameters: '-resourceEnvironmentName "$(resourceEnvironmentName)" -environmentName "$(environmentName)" -sharedAppServicePlanName "$(sharedAppServicePlanName)" -sharedAppServicePlanResourceGroup "$(sharedAppServicePlanResourceGroup)" -configurationStorageConnectionString "$(configurationStorageConnectionString)" -loggingRedisConnectionString "$(loggingRedisConnectionString)" -internalApiCustomHostname "$(internalApiCustomHostname)" -internalApiCertificateName "$(internalApiCertificateName)" -serviceName "$(serviceName)" -appServiceCustomeHostname "$(appServiceCustomeHostname)" -appServiceCertificateName "$(appServiceCertificateName)" -OdicAuthority "$(OdicAuthority)" -OdicMetaDataAddress "$(OdicMetaDataAddress)" -OdicClientSecret "$(OdicClientSecret)" -azureStorageConnectionString "$(azureStorageConnectionString)"  -OdicID "$(OdicID)" -ActiveDirectoryid "$(ActiveDirectoryid)" -ActiveDirectorytenant "$(ActiveDirectorytenant)" -ActiveDirectoryidentifier "$(ActiveDirectoryidentifier)" -ApiBaseUrl "$(ApiBaseUrl)" -ClientId "$(ClientId)" -ClientSecret "$(ClientSecret)" -IdentifierUri "$(IdentifierUri)" -AccountsHomePage "$(AccountsHomePage)" -AccountsApiBaseUrl "$(AccountsApiBaseUrl)" -AccountsApiClientSecret "$(AccountsApiClientSecret)" -AccountsApiIdentifierUri "$(AccountsApiIdentifierUri)" -AccountsApiClientId "$(AccountsApiClientId)"'
+              deploymentOutputs: armoutputs
+
  
