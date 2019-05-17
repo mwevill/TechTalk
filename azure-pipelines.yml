@@ -57,10 +57,10 @@ stages:
             displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
             inputs:
               azureSubscription: 'VSTS'
-              resourceGroupName: '$(ResourceGroup)'
+              resourceGroupName: $(ResourceGroup)
               location: 'West Europe'
-              csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
-              overrideParameters: '-skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"'
+              csmFile: $(System.DefaultWorkingDirectory)/Azure/template.json
+              overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
 
  
