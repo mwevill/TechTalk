@@ -9,7 +9,7 @@ stages:
       solution: '**/*.sln'
       buildPlatform: 'Any CPU'
       buildConfiguration: 'Release'
-      ResourceGroup: 'mw-test-rg'
+      ResourceGroup: 'mwtestrg'
       skuName: 'B1'
       skuCapacity: '1'
       sqlAdministratorLogin: 'superSecureLogin'
