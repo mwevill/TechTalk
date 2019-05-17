@@ -39,6 +39,20 @@ stages:
         PathtoPublish: '$(build.artifactstagingdirectory)'
         ArtifactName: Demo
 
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      inputs:
+        Contents: |
+          azure\**
+          src\**\*.dacpac
+      TargetFolder: '$(build.artifactstagingdirectory)/publish'
+      OverWrite: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)/publish'
+
 - stage: Deploy
   jobs:
   # track deployments on the environment
