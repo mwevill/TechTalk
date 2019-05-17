@@ -9,6 +9,11 @@ stages:
       solution: '**/*.sln'
       buildPlatform: 'Any CPU'
       buildConfiguration: 'Release'
+      ResourceGroup: 'mw-test-rg'
+      skuName: 'B1'
+      skuCapacity: '1'
+      sqlAdministratorLogin: 'superSecureLogin'
+      sqlAdministratorLoginPassword: 'P455W0rd1234'
     steps:
     - task: NuGetToolInstaller@0
 
@@ -51,11 +56,11 @@ stages:
           - task: AzureResourceGroupDeployment@2
             displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
             inputs:
-              azureSubscription: 'SFA-DAS-DevTest'
+              azureSubscription: 'VSTS'
               resourceGroupName: '$(ResourceGroup)'
               location: 'West Europe'
-              csmFile: '$(System.DefaultWorkingDirectory)/das-employer-favourites/drop/azure/template.json'
-              overrideParameters: '-resourceEnvironmentName "$(resourceEnvironmentName)" -environmentName "$(environmentName)" -sharedAppServicePlanName "$(sharedAppServicePlanName)" -sharedAppServicePlanResourceGroup "$(sharedAppServicePlanResourceGroup)" -configurationStorageConnectionString "$(configurationStorageConnectionString)" -loggingRedisConnectionString "$(loggingRedisConnectionString)" -internalApiCustomHostname "$(internalApiCustomHostname)" -internalApiCertificateName "$(internalApiCertificateName)" -serviceName "$(serviceName)" -appServiceCustomeHostname "$(appServiceCustomeHostname)" -appServiceCertificateName "$(appServiceCertificateName)" -OdicAuthority "$(OdicAuthority)" -OdicMetaDataAddress "$(OdicMetaDataAddress)" -OdicClientSecret "$(OdicClientSecret)" -azureStorageConnectionString "$(azureStorageConnectionString)"  -OdicID "$(OdicID)" -ActiveDirectoryid "$(ActiveDirectoryid)" -ActiveDirectorytenant "$(ActiveDirectorytenant)" -ActiveDirectoryidentifier "$(ActiveDirectoryidentifier)" -ApiBaseUrl "$(ApiBaseUrl)" -ClientId "$(ClientId)" -ClientSecret "$(ClientSecret)" -IdentifierUri "$(IdentifierUri)" -AccountsHomePage "$(AccountsHomePage)" -AccountsApiBaseUrl "$(AccountsApiBaseUrl)" -AccountsApiClientSecret "$(AccountsApiClientSecret)" -AccountsApiIdentifierUri "$(AccountsApiIdentifierUri)" -AccountsApiClientId "$(AccountsApiClientId)"'
+              csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
+              overrideParameters: '-skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"'
               deploymentOutputs: armoutputs
 
  
