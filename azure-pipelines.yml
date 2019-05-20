@@ -43,7 +43,7 @@ stages:
         OverWrite: true
 
     - task: PublishBuildArtifacts@1
-      displayName: 'das-pensionsregulato'
+      displayName: 'das-pensionsregulator'
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
 
