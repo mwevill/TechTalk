@@ -39,7 +39,7 @@ stages:
         TargetFolder: '$(build.artifactstagingdirectory)'
         Contents:
           azure\**
-          src\**\*.dacpac
+          *\**.dacpac
         OverWrite: true
 
     - task: PublishBuildArtifacts@1
