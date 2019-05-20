@@ -34,15 +34,15 @@ stages:
         configuration: '$(buildConfiguration)'
 
     - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: code'
+      displayName: 'Publish Artifact: drop'
       inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)/publish'
+        PathtoPublish: '$(build.artifactstagingdirectory)'
         ArtifactName: Demo
 
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
-        TargetFolder: '$(build.artifactstagingdirectory)/publish'
+        TargetFolder: '$(build.artifactstagingdirectory)/drop'
         Contents:
           azure\**
           src\**\*.dacpac
@@ -51,7 +51,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'
       inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)/publish'
+        PathtoPublish: '$(build.artifactstagingdirectory)/drop'
 
 - stage: Deploy
   jobs:
