@@ -33,12 +33,6 @@ stages:
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: Demo
-
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
@@ -79,7 +73,7 @@ stages:
               azureSubscription: 'VSTS'
               resourceGroupName: $(ResourceGroup)
               location: 'West Europe'
-              csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
+              csmFile: '$(System.DefaultWorkingDirectory)/drop/Azure/template.json'
               overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
 
