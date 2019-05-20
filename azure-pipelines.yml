@@ -37,8 +37,8 @@ stages:
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
         TargetFolder: '$(build.artifactstagingdirectory)'
-        Contents:
-          azure\**
+        Contents: |
+          Azure\**
           *\**.dacpac
         OverWrite: true
 
