@@ -36,7 +36,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: code'
       inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
+        PathtoPublish: '$(build.artifactstagingdirectory)/publish'
         ArtifactName: Demo
 
     - task: CopyFiles@2
