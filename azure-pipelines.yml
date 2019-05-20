@@ -73,7 +73,7 @@ stages:
               azureSubscription: 'VSTS'
               resourceGroupName: $(ResourceGroup)
               location: 'West Europe'
-              csmFile: '$(System.DefaultWorkingDirectory)/das-pensionsregulator/drop/Azure/template.json'
+              csmFile: '$(System.DefaultWorkingDirectory)/mwevill.TechTalk (1) (Build)/das-pensionsregulator/drop/Azure/template.json'
               overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
 
