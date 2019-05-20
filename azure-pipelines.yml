@@ -42,11 +42,11 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
-        Contents: |
+        TargetFolder: '$(build.artifactstagingdirectory)/publish'
+        Contents:
           azure\**
           src\**\*.dacpac
-      TargetFolder: '$(build.artifactstagingdirectory)/publish'
-      OverWrite: true
+        OverWrite: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
