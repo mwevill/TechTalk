@@ -86,7 +86,7 @@ stages:
           - task: keesschollaart.arm-outputs.arm-outputs.ARM Outputs@5
             displayName: 'ARM Outputs'
             inputs:
-               ConnectedServiceNameARM: VSTS
-                resourceGroupName: mwtestrg
+              ConnectedServiceNameARM: VSTS
+              resourceGroupName: mwtestrg
 
  
