@@ -1,16 +1,12 @@
-$ARMOutput = Get-VstsInput -Name "ARMOutputs" -Require
 
-# ---- Output from ARM template is a JSON document
-$JsonVars = $ARMOutput | ConvertFrom-Json
+param (
+    [Parameter(Mandatory=$true)][string]$ARMOutput
+    )
 
-# ---- The outputs will be of type noteproperty, get a list of all of them
-foreach ($OutputName in ($JsonVars | Get-Member -MemberType NoteProperty).name) {
-    # ---- Get the type and value for each output
-    $OutTypeValue = $JsonVars | Select-Object -ExpandProperty $OutputName
-    $OutType = $OutTypeValue.type
-    $OutValue = $OutTypeValue.value
+#region Convert from json
+$json = $ARMOutput | convertfrom-json
+#endregion
 
-    # Set Azure DevOps variable
-    Write-Output "Setting $OutputName"
-    Write-Output "##vso[task.setvariable variable=$OutputName;issecret=true]$OutValue"
-}
+#region Parse ARM Template Output
+Write-Output -InputObject ('Hello {0} {1}' -f $json.firstNameOutput.value, $json.lastNameOutput.value)
+#endregion
