@@ -72,7 +72,7 @@ stages:
             inputs:
               artifactName: 'TechTalk'
               downloadPath: $(System.DefaultWorkingDirectory)
-              pipelineid:               
+              pipelineid: 2             
           - task: AzureResourceGroupDeployment@2
             displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
             inputs:
