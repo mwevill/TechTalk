@@ -83,33 +83,33 @@ stages:
               csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
               overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
-- task: AzurePowerShell@4
-  inputs:
-    azureSubscription: 'VSTS'
-    ScriptType: 'InlineScript'
-    Inline: 'param(
-            [string]  $ResourceGroup
-           )
+          - task: AzurePowerShell@4
+            inputs:
+            azureSubscription: 'VSTS'
+            ScriptType: 'InlineScript'
+            Inline: 'param(
+                    [string]  $ResourceGroup
+                    )
            
-           $lastDeployment = Get-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName | Sort Timestamp -Descending | Select -First 1 
+                    $lastDeployment = Get-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName | Sort Timestamp -Descending | Select -First 1 
            
-           if(!$lastDeployment) {
-               throw "Deployment could not be found for Resource Group ''$resourceGroupName''."
-           }
+                    if(!$lastDeployment) {
+                     throw "Deployment could not be found for Resource Group ''$resourceGroupName''."
+                    }
            
-           if(!$lastDeployment.Outputs) {
-               throw "No output parameters could be found for the last deployment of Resource Group ''$resourceGroupName''."
-           }
+                    if(!$lastDeployment.Outputs) {
+                      throw "No output parameters could be found for the last deployment of Resource Group ''$resourceGroupName''."
+                    }
            
-           foreach ($key in $lastDeployment.Outputs.Keys){
-               $type = $lastDeployment.Outputs.Item($key).Type
-               $value = $lastDeployment.Outputs.Item($key).Value
+                    foreach ($key in $lastDeployment.Outputs.Keys){
+                      $type = $lastDeployment.Outputs.Item($key).Type
+                      $value = $lastDeployment.Outputs.Item($key).Value
            
-               if ($type -eq "SecureString") {
-                   Write-Host "##vso[task.setvariable variable=$key;issecret=true]$value" 
-               }
-               else {
-                   Write-Host "##vso[task.setvariable variable=$key;]$value" 
-               }
-           }'
-    azurePowerShellVersion: 'LatestVersion'
+                      if ($type -eq "SecureString") {
+                         Write-Host "##vso[task.setvariable variable=$key;issecret=true]$value" 
+                    }
+                    else {
+                         Write-Host "##vso[task.setvariable variable=$key;]$value" 
+                    }
+                  }'
+            azurePowerShellVersion: 'LatestVersion'
