@@ -390,6 +390,6 @@
       "hostingPlanName": {
         "type": "string",
         "value": "[variables('hostingPlanName')]"
-      },
+      }
     }
   }
