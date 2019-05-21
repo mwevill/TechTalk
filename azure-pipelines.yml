@@ -79,7 +79,7 @@ stages:
               resourceGroupName: $(ResourceGroup)
               location: 'West Europe'
               templateLocation: 'Linked artifact'
-              csmFile: '$(System.DefaultWorkingDirectory)/TechTalk/Azure/template.json'
+              csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
               overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
 
