@@ -1,25 +1,16 @@
-param(
- [string]  $resourceGroupName
-)
+$ARMOutput = Get-VstsInput -Name "ARMOutputs" -Require
 
-$lastDeployment = Get-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName | Sort Timestamp -Descending | Select -First 1 
+# ---- Output from ARM template is a JSON document
+$JsonVars = $ARMOutput | ConvertFrom-Json
 
-if(!$lastDeployment) {
-    throw "Deployment could not be found for Resource Group '$resourceGroupName'."
-}
+# ---- The outputs will be of type noteproperty, get a list of all of them
+foreach ($OutputName in ($JsonVars | Get-Member -MemberType NoteProperty).name) {
+    # ---- Get the type and value for each output
+    $OutTypeValue = $JsonVars | Select-Object -ExpandProperty $OutputName
+    $OutType = $OutTypeValue.type
+    $OutValue = $OutTypeValue.value
 
-if(!$lastDeployment.Outputs) {
-    throw "No output parameters could be found for the last deployment of Resource Group '$resourceGroupName'."
-}
-
-foreach ($key in $lastDeployment.Outputs.Keys){
-    $type = $lastDeployment.Outputs.Item($key).Type
-    $value = $lastDeployment.Outputs.Item($key).Value
-
-    if ($type -eq "SecureString") {
-        Write-Host "##vso[task.setvariable variable=$key;issecret=true]$value" 
-    }
-    else {
-        Write-Host "##vso[task.setvariable variable=$key;]$value" 
-    }
+    # Set Azure DevOps variable
+    Write-Output "Setting $OutputName"
+    Write-Output "##vso[task.setvariable variable=$OutputName;issecret=true]$OutValue"
 }
