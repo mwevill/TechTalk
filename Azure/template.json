@@ -376,20 +376,20 @@
     ],
     "outputs": {
       "siteUri": {
-        "type": "string",
-        "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName'))).hostnames[0]]"
+        "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName'))).hostnames[0]]",
+        "type": "string"
       },
       "sqlSvrFqdn": {
-        "type": "string",
-        "value": "[reference(concat('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName]"
+        "value": "[reference(concat('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName]",
+        "type": "string"
       },
       "webSiteName": {
-        "type": "string",
-        "value": "[variables('webSiteName')]"
+        "value": "[variables('webSiteName')]",
+        "type": "string"
       },
       "hostingPlanName": {
-        "type": "string",
-        "value": "[variables('hostingPlanName')]"
+        "value": "[variables('hostingPlanName')]",
+        "type": "string"
       }
     }
   }
