@@ -91,3 +91,10 @@ stages:
               ScriptPath: '$(System.DefaultWorkingDirectory)/Azure/ArmOutput.ps1'
               ScriptArguments: -ARMOutput '$(armoutputs)'
               azurePowerShellVersion: 'LatestVersion'
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'VSTS'
+              appType: 'webApp'
+            WebAppName: '$(webSiteName)'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
