@@ -83,10 +83,36 @@ stages:
               csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
               overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
-          - task: keesschollaart.arm-outputs.arm-outputs.ARMOutputs@5
-            displayName: 'ARM Outputs'
+          - task: AzurePowerShell@3
+            displayName: 'Azure PowerShell script: InlineScript'
             inputs:
-              ConnectedServiceNameARM: VSTS
-              resourceGroupName: mwtestrg
-
+              azureSubscription: VSTS
+              ScriptType: InlineScript
+              Inline: |
+     param(
+      [string]  $ResourceGroup
+     )
+     
+     $lastDeployment = Get-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName | Sort Timestamp -Descending | Select -First 1 
+     
+     if(!$lastDeployment) {
+         throw "Deployment could not be found for Resource Group '$resourceGroupName'."
+     }
+     
+     if(!$lastDeployment.Outputs) {
+         throw "No output parameters could be found for the last deployment of Resource Group '$resourceGroupName'."
+     }
+     
+     foreach ($key in $lastDeployment.Outputs.Keys){
+         $type = $lastDeployment.Outputs.Item($key).Type
+         $value = $lastDeployment.Outputs.Item($key).Value
+     
+         if ($type -eq "SecureString") {
+             Write-Host "##vso[task.setvariable variable=$key;issecret=true]$value" 
+         }
+         else {
+             Write-Host "##vso[task.setvariable variable=$key;]$value" 
+         }
+     }
+              azurePowerShellVersion: LatestVersion
  
