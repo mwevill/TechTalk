@@ -7,6 +7,13 @@ param (
 $json = $ARMOutput | convertfrom-json
 #endregion
 
-#region Parse ARM Template Output
-Write-Output -InputObject ('Hello {0} {1}' -f $json.firstNameOutput.value, $json.lastNameOutput.value)
-#endregion
+foreach ($OutputName in ($json | Get-Member -MemberType NoteProperty).name) {
+    # ---- Get the type and value for each output
+    $OutTypeValue = $json | Select-Object -ExpandProperty $OutputName
+    $OutType = $OutTypeValue.type
+    $OutValue = $OutTypeValue.value
+
+    # Set Azure DevOps variable
+    Write-Output "Setting $OutputName"
+    Write-Output "##vso[task.setvariable variable=$OutputName;issecret=true]$OutValue"
+}
