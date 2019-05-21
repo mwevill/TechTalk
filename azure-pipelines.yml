@@ -46,7 +46,7 @@ stages:
       displayName: 'Publish artifact'
       inputs:
         artifactName: TechTalk
-        PathtoPublish: '$(System.DefaultWorkingDirectory)'
+        targetPath: $(Build.ArtifactStagingDirectory)
 
 - stage: Deploy
   jobs:
