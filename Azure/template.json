@@ -382,6 +382,14 @@
       "sqlSvrFqdn": {
         "type": "string",
         "value": "[reference(concat('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName]"
-      }
+      },
+      "webSiteName": {
+        "type": "string",
+        "value": "[variables('webSiteName')]"
+      },
+      "hostingPlanName": {
+        "type": "string",
+        "value": "[variables('hostingPlanName')]"
+      },
     }
   }
