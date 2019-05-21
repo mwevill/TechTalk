@@ -61,6 +61,7 @@ stages:
       skuCapacity: '1'
       sqlAdministratorLogin: 'superSecureLogin'
       sqlAdministratorLoginPassword: 'P455W0rd1234'
+      location: 'West Europe'
     environment: 'AcceptanceTest'
     strategy:
       # default deployment strategy
