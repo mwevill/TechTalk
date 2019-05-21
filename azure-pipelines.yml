@@ -83,7 +83,7 @@ stages:
               csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
               overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
               deploymentOutputs: armoutputs
-          - task: keesschollaart.arm-outputs.arm-outputs.ARM Outputs@5
+          - task: keesschollaart.arm-outputs.arm-outputs.ARMOutputs@5
             displayName: 'ARM Outputs'
             inputs:
               ConnectedServiceNameARM: VSTS
