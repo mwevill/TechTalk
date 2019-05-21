@@ -46,7 +46,7 @@ stages:
       displayName: 'Publish artifact'
       inputs:
         artifactName: TechTalk
-        PathtoPublish: '$(build.artifactstagingdirectory)'
+        PathtoPublish: '$(System.DefaultWorkingDirectory)'
 
 - stage: Deploy
   jobs:
@@ -71,7 +71,7 @@ stages:
           - task: DownloadPipelineArtifact@0
             inputs:
             artifactName: 'TechTalk'
-            targetPath: $(System.DefaultWorkingDirectory)
+            downloadPath: $(System.DefaultWorkingDirectory)
           - task: AzureResourceGroupDeployment@2
             displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
             inputs:
