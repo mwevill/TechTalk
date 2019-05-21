@@ -42,7 +42,7 @@ stages:
           *\**.dacpac
         OverWrite: true
 
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@0
       displayName: 'Publish artifact'
       inputs:
         artifactName: TechTalk
