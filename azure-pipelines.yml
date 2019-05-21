@@ -96,5 +96,7 @@ stages:
               ConnectionType: 'AzureRM'
               azureSubscription: 'VSTS'
               appType: 'webApp'
+              WebAppName: "$(webSiteName)"
+              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
               ConfigurationSettings: '"MyDbConnection:$(sqlConnectionString)"'
   
