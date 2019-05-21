@@ -89,5 +89,5 @@ stages:
               azureSubscription: 'VSTS'
               ScriptType: 'FilePath'
               ScriptPath: '$(System.DefaultWorkingDirectory)/Azure/ArmOutput.ps1'
-              ScriptArguments: '-ARMOutput $(armoutputs)'
+              ScriptArguments: '-ARMOutput "$(armoutputs)""'
               azurePowerShellVersion: 'LatestVersion'
