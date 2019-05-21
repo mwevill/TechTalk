@@ -68,6 +68,10 @@ stages:
         deploy:
           steps:
           - script: echo my first deployment
+          - task: DownloadPipelineArtifact@0
+            inputs:
+            artifactName: 'TechTalk'
+            targetPath: $(System.DefaultWorkingDirectory)
           - task: AzureResourceGroupDeployment@2
             displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
             inputs:
