@@ -51,52 +51,16 @@ stages:
 
 - stage: Deploy
   jobs:
-  # track deployments on the environment
-  - deployment: DeployWeb
-    pool:
-      vmImage: 'windows-latest'
-  # creates an environment if it doesn’t exist
-    environment: 'AcceptanceTest'
-    variables:
-      ResourceGroup: 'mwtestrg'
-      skuName: 'B1'
-      skuCapacity: '1'
-      sqlAdministratorLogin: 'superSecureLogin'
-      sqlAdministratorLoginPassword: 'P455W0rd1234'
-      location: 'West Europe'
-    strategy:
-      # default deployment strategy
-      runOnce:
-        deploy:
-          steps:
-          - script: echo my first deployment
-          - task: DownloadPipelineArtifact@0
-            inputs:
-              artifactName: 'TechTalk'
-              downloadPath: $(System.DefaultWorkingDirectory)          
-          - task: AzureResourceGroupDeployment@2
-            displayName: 'Azure Deployment:Create Or Update Resource Group action on $(ResourceGroup)'
-            inputs:
-              azureSubscription: 'VSTS'
-              resourceGroupName: $(ResourceGroup)
-              location: 'West Europe'
-              templateLocation: 'Linked artifact'
-              csmFile: '$(System.DefaultWorkingDirectory)/Azure/template.json'
-              overrideParameters: -skuName "$(skuName)" -skuCapacity "$(skuCapacity)" -sqlAdministratorLogin "$(sqlAdministratorLogin)" -sqlAdministratorLoginPassword "$(sqlAdministratorLoginPassword)" -location "$(location)"
-              deploymentOutputs: armoutputs
-          - task: AzurePowerShell@4
-            inputs:
-              azureSubscription: 'VSTS'
-              ScriptType: 'FilePath'
-              ScriptPath: '$(System.DefaultWorkingDirectory)/Azure/ArmOutput.ps1'
-              ScriptArguments: -ARMOutput '$(armoutputs)'
-              azurePowerShellVersion: 'LatestVersion'
-          - task: AzureRmWebAppDeployment@4
-            inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'VSTS'
-              appType: 'webApp'
-              WebAppName: "$(webSiteName)"
-              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-              ConfigurationSettings: '"MyDbConnection:$(sqlConnectionString)"'
-  
+  -template: Templates/deploy.yml
+  parameters:
+    environment: AcceptanceTest
+    ResourceGroup: mwtestrg
+    sqlAdministratorLogin: 'superSecureLogin'
+    sqlAdministratorLoginPassword: 'P455W0rd1234'
+
+  -template: Templates/deploy.yml
+  parameters:
+    environment: QA
+    ResourceGroup: mwqarg
+    sqlAdministratorLogin: 'superSecureLogin'
+    sqlAdministratorLoginPassword: '4dmin!str4tor'
