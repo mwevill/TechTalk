@@ -65,4 +65,4 @@ stages:
       environment: 'QA'
       ResourceGroup: 'mwqarg'
       sqlAdministratorLogin: 'superSecureLogin'
-      sqlAdministratorLoginPassword: '4dm1n15t4t0r'
+      sqlAdministratorLoginPassword: '4dm1n15t4t0r1234'
