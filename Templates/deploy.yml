@@ -9,7 +9,7 @@ jobs:
   pool:
       vmImage: 'windows-latest'
   # creates an environment if it doesn’t exist
-  environment: ${{ parameters.environment }}'
+#  environment: ${{ parameters.environment }}'
   variables:
     ResourceGroup: ${{ parameters.ResourceGroup }}
     skuName: 'B1'
