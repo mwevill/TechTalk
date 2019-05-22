@@ -51,23 +51,30 @@ stages:
 
 - stage: DeployAcceptanceTest
   jobs:
-  - deployment: DeployATWeb 
-    displayName:  DeployWeb_AcceptanceTest
-    pool:
-      vmImage: 'windows-latest'
+  - template: Templates/stages.yml
+    parameters:
+      environment: 'AcceptanceTest'
+      ResourceGroup: 'mwtestrg'
+      sqlAdministratorLogin: 'superSecureLogin'
+      sqlAdministratorLoginPassword: 'P455W0rd1234'
+
+ # - deployment: DeployATWeb 
+ #   displayName:  DeployWeb_AcceptanceTest
+ #   pool:
+ #     vmImage: 'windows-latest'
   # creates an environment if it doesn’t exist
-    environment: 'AcceptanceTest'
-    strategy:
+ #   environment: 'AcceptanceTest'
+ #   strategy:
     # default deployment strategy
-      runOnce:
-        deploy:
-           steps:
-            - template: Templates/deploy.yml
-              parameters:
-                environment: 'AcceptanceTest'
-                ResourceGroup: 'mwtestrg'
-                sqlAdministratorLogin: 'superSecureLogin'
-                sqlAdministratorLoginPassword: 'P455W0rd1234'
-                skuName:  'B1'
-                skuCapacity: '1'
-                location: 'West Europe'
+#      runOnce:
+#        deploy:
+#           steps:
+#            - template: Templates/deploy.yml
+#              parameters:
+#                environment: 'AcceptanceTest'
+#                ResourceGroup: 'mwtestrg'
+#                sqlAdministratorLogin: 'superSecureLogin'
+#                sqlAdministratorLoginPassword: 'P455W0rd1234'
+#                skuName:  'B1'
+#                skuCapacity: '1'
+#                location: 'West Europe'
