@@ -56,7 +56,7 @@ stages:
     pool:
       vmImage: 'windows-latest'
   # creates an environment if it doesn’t exist
-    environment: ${{ parameters.environment }}'
+    environment: 'AcceptanceTest'
     strategy:
     # default deployment strategy
       runOnce:
