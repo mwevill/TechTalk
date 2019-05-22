@@ -61,9 +61,9 @@ stages:
     # default deployment strategy
       runOnce:
         deploy:
-  - template: Templates/deploy.yml
-    parameters:
-      environment: 'AcceptanceTest'
-      ResourceGroup: 'mwtestrg'
-      sqlAdministratorLogin: 'superSecureLogin'
-      sqlAdministratorLoginPassword: 'P455W0rd1234'
+        - template: Templates/deploy.yml
+          parameters:
+          environment: 'AcceptanceTest'
+          ResourceGroup: 'mwtestrg'
+          sqlAdministratorLogin: 'superSecureLogin'
+          sqlAdministratorLoginPassword: 'P455W0rd1234'
