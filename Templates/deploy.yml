@@ -5,11 +5,11 @@ parameters:
   sqlAdministratorLoginPassword: ''
 
 jobs:
-- job: DeployWeb_${{ parameters.enviroment }}
+- job: DeployWeb_${{ parameters.environment }}
   pool:
       vmImage: 'windows-latest'
   # creates an environment if it doesn’t exist
-  environment: ${{ parameters.enviroment }}'
+  environment: ${{ parameters.environment }}'
   variables:
     ResourceGroup: ${{ parameters.ResourceGroup }}
     skuName: 'B1'
