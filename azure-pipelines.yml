@@ -54,7 +54,7 @@ stages:
   - deployment: DeployATWeb
   - template: Templates/deploy.yml
     parameters:
-      environment: AcceptanceTest
-      ResourceGroup: mwtestrg
+      environment: 'AcceptanceTest'
+      ResourceGroup: 'mwtestrg'
       sqlAdministratorLogin: 'superSecureLogin'
       sqlAdministratorLoginPassword: 'P455W0rd1234'
