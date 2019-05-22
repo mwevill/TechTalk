@@ -52,7 +52,7 @@ stages:
 - stage: DeployAcceptanceTest
   jobs:
   - deployment: DeployATWeb 
-    displayName:  DeployWeb_${{ parameters.environment }}
+    displayName:  DeployWeb_AcceptanceTest
     pool:
       vmImage: 'windows-latest'
   # creates an environment if it doesn’t exist
