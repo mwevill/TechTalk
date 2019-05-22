@@ -49,7 +49,7 @@ stages:
         artifactName: TechTalk
         targetPath: $(Build.ArtifactStagingDirectory)
 
-- stage: Deploy
+- stage: DeployAcceptanceTest
   jobs:
   -template: Templates/deploy.yml
   parameters:
@@ -58,6 +58,8 @@ stages:
     sqlAdministratorLogin: 'superSecureLogin'
     sqlAdministratorLoginPassword: 'P455W0rd1234'
 
+- stage: DeployQA
+  jobs:
   -template: Templates/deploy.yml
   parameters:
     environment: QA
